@@ -4,6 +4,7 @@
   "package": "org.samo_lego.clientsystem.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "MixinCraftingTableBlock"
   ],
   "client": [
   ],

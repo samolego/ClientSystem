@@ -16,6 +16,10 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.CraftingResultSlot;
 import net.minecraft.screen.slot.Slot;
 
+import java.util.List;
+
+import static org.samo_lego.clientsystem.ClientSystem.LINK_SCREEN_HANDLER;
+
 @Environment(EnvType.CLIENT)
 public class LinkScreenHandler extends AbstractRecipeScreenHandler<CraftingInventory> {
 
@@ -29,7 +33,7 @@ public class LinkScreenHandler extends AbstractRecipeScreenHandler<CraftingInven
     }
 
     public LinkScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
-        super(ScreenHandlerType.CRAFTING, syncId);
+        super(LINK_SCREEN_HANDLER, syncId);
         this.input = new CraftingInventory(this, 3, 3);
         this.result = new CraftingResultInventory();
         this.context = context;
@@ -40,11 +44,11 @@ public class LinkScreenHandler extends AbstractRecipeScreenHandler<CraftingInven
         int l;
 
         // Linked items
-        for(m = 0; m < 2; ++m) {
+        /*for(m = 0; m < 2; ++m) {
             for(l = 0; l < 6; ++l) {
-                this.addSlot(new Slot(this.input, l + m * 3, 30 + l * 18, 17 + m * 18));
+                this.addSlot(new Slot(this.input, l + m * 2 + 6, l * 18, m * 18));
             }
-        }
+        }*/
 
         // Crafting inventory
         for(m = 0; m < 3; ++m) {
@@ -61,6 +65,15 @@ public class LinkScreenHandler extends AbstractRecipeScreenHandler<CraftingInven
         // The player hotbar
         for(m = 0; m < 9; ++m) {
             this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 142));
+        }
+        System.out.println("Link system creation of GUI");
+
+    }
+
+    @Environment(EnvType.CLIENT)
+    public void updateSlotStacks(List<ItemStack> stacks) {
+        for(int i = 0; i < stacks.size(); ++i) {
+            this.getSlot(i).setStack(stacks.get(i));
         }
 
     }

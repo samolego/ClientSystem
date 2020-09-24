@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class LinkScreen extends HandledScreen<ScreenHandler> {
     private static final Identifier TEXTURE_CRAFTING = new Identifier("textures/gui/container/crafting_table.png");
-    private static final Identifier TEXTURE_SEARCH = new Identifier("textures/gui/container/creative/search.png");
+    private static final Identifier TEXTURE_SEARCH = new Identifier("textures/gui/container/creative_inventory/tab_item_search.png");
     private static final Identifier RECIPE_BUTTON_TEXTURE = new Identifier("textures/gui/recipe_button.png");
     private final RecipeBookWidget recipeBook = new RecipeBookWidget();
     private boolean narrow;
@@ -27,8 +27,14 @@ public class LinkScreen extends HandledScreen<ScreenHandler> {
 
     @Override
     protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+        client.getTextureManager().bindTexture(TEXTURE_SEARCH);
+        x = (width - backgroundWidth) / 2;
+        y = height / 4 - backgroundHeight / 2;
+        System.out.println(height);
+        drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
+
+        // Crafting
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        assert client != null;
         client.getTextureManager().bindTexture(TEXTURE_CRAFTING);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
@@ -48,7 +54,7 @@ public class LinkScreen extends HandledScreen<ScreenHandler> {
         // Center the title
         titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
         this.narrow = this.width < 379;
-        this.recipeBook.initialize(this.width, this.height, this.client, this.narrow, (AbstractRecipeScreenHandler<?>)this.handler);
+        //this.recipeBook.initialize(this.width, this.height, this.client, this.narrow, (AbstractRecipeScreenHandler<?>)this.handler);
         this.x = this.recipeBook.findLeftEdge(this.narrow, this.width, this.backgroundWidth);
         this.children.add(this.recipeBook);
         this.setInitialFocus(this.recipeBook);

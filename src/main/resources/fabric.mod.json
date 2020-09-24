@@ -16,9 +16,9 @@
   "license": "MIT",
   "icon": "assets/clientsystem/icon.png",
 
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
-    "main": [
+    "client": [
       "org.samo_lego.clientsystem.ClientSystem"
     ]
   },
@@ -28,8 +28,7 @@
 
   "depends": {
     "fabricloader": ">=0.7.4",
-    "fabric": "*",
-    "minecraft": "1.16.x"
+    "fabric": "*"
   },
   "custom": {
     "modupdater": {

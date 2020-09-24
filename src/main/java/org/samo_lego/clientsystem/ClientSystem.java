@@ -19,7 +19,7 @@ import org.samo_lego.clientsystem.gui.screen.LinkScreenHandler;
 @Environment(EnvType.CLIENT)
 public class ClientSystem implements ClientModInitializer {
 	public static final String MOD_ID = "clientsystem";
-	private static KeyBinding keyBinding;
+	public static KeyBinding keyBinding;
 	public static ScreenHandlerType<LinkScreenHandler> LINK_SCREEN_HANDLER;
 
 	@Override
@@ -27,13 +27,13 @@ public class ClientSystem implements ClientModInitializer {
 		keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
 				"key.clientsystem.openLinkSystem", // The translation key of the keybinding's name
 				InputUtil.Type.KEYSYM,
-				GLFW.GLFW_KEY_LEFT_SHIFT, // The keycode of the key
+				GLFW.GLFW_KEY_LEFT_ALT, // The keycode of the key
 				"category.clientsystem.main"
 		));
 
+
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			while (keyBinding.wasPressed()) {
-				assert client.player != null;
 				client.player.sendMessage(new LiteralText("Keybind was pressed."), false);
 			}
 		});
